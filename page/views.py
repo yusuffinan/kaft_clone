@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 def index(request):
     context = dict()
-    return render(request, 'page/home.html', context)
+    return render(request, 'home/index.html', context)
