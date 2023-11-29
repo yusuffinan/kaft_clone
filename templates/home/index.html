@@ -1,5 +1,22 @@
 {% extends "base/base.html" %}
 {% block content %}
-<H1>Content</H1>
+
+{% include "home/carousel.html" %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-3">
+            {% include "product/product.html" %}
+        </div>
+        <div class="col-sm-3">
+            {% include "product/product.html" %}
+        </div>
+        <div class="col-sm-3">
+            {% include "product/product.html" %}
+        </div>
+        <div class="col-sm-3">
+            {% include "product/product.html" %}
+        </div>
+    </div>
+</div>
 {% endblock content %}
 
