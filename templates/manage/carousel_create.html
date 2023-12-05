@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+{% block content%}
+
+<form method="POST" enctype="multipart/form-data" class="mt-3"> {% csrf_token %}
+    {{ form.as_p }}
+    
+      {% comment %} <label for="">Email address</label>
+      <input type="text" name = "title" class="form-control"   placeholder="Enter email"><br><br>
+      <input type="file" name = "cover_image"><br><br>
+      <input type="submit" class="btn btn-primary" value="ekle"/> {% endcomment %}
+
+  </form>
+{%endblock%} 
