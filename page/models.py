@@ -20,7 +20,7 @@ class Page(models.Model):
         return f"{self.title}"
     
 class Carousel(models.Model):
-    title = models.CharField(max_length=2, blank=True, null=True)
+    title = models.CharField(max_length=20, blank=True, null=True)
     cover_image = models.ImageField(blank=True, null=True, upload_to="Carousel")
     status = models.CharField(default=STATUS_DEFAULT, choices=STATUS, max_length=10)
     createt_at = models.DateTimeField(auto_now_add=True)
