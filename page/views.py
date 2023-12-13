@@ -3,6 +3,7 @@ from .models import Carousel, Page
 from django.contrib import messages
 from .forms import CarouselModelForm, PageModelForm
 from django.utils.text import slugify
+from django.contrib.admin.views.decorators import staff_member_required
 def index(request):
     context = dict()
     context['images'] = Carousel.objects.all()
@@ -42,12 +43,12 @@ def page_update(request,pk):
     return render (request, "manage/form.html", context)
 
 def page_delete(request, pk):
-    
     item = Page.objects.get(pk=pk)
     if request.method == "POST":
         item.delete()
     return redirect("page_list")
 
+@staff_member_required
 def page_list(request):
     context = dict()
     context['items'] = Page.objects.all()
