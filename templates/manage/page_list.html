@@ -32,6 +32,15 @@
 
 
                 <td><a href="{% url 'page_update' item.pk %}" class="btn btn-primary">Edit</a></td>
+                <td>
+
+                  <form method="post" action="{% url 'page_delete' item.pk %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Sil</button>
+                  </form>
+                </td>
+                
+
               </tr>
           {% endfor %}
           </tbody>

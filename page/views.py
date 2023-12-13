@@ -42,11 +42,10 @@ def page_update(request,pk):
     return render (request, "manage/form.html", context)
 
 def page_delete(request, pk):
-    context = dict()
+    
     item = Page.objects.get(pk=pk)
-    form = PageModelForm(request.POST, request.FILES, instance=item)
     if request.method == "POST":
-        form.delete()
+        item.delete()
     return redirect("page_list")
 
 def page_list(request):

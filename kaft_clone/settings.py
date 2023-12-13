@@ -86,6 +86,9 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': 'localhost', # PostgreSQL sunucusunun adresi
         'PORT': '5432', # Varsayılan PostgreSQL portu kullanılabilir
+        'OPTIONS': {
+            'options': '-c search_path=new'
+        }
     }
 }
 

@@ -10,7 +10,9 @@ path("page_list", views.page_list, name="page_list"),
 path("page_create", views.page_create, name="page_create"),
 
 path("carousel_update/<int:pk>", views.carousel_update, name="carousel_update"),
-path("page_update/<int:pk>", views.page_update, name="page_update")
+path("page_update/<int:pk>", views.page_update, name="page_update"),
+path("page_delete/<int:pk>", views.page_delete, name="page_delete")
+
 
 
     
