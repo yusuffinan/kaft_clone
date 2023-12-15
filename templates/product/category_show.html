@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block content%}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>{{ category.title }}</h3>
+            <div class="row">
+                {% for item in items %}
+                    <div class="col-sm-4">
+                        {% include "product/categories_product.html" %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div> 
+            
+    </div> 
+</div>
+{% endblock %} 
