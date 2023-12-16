@@ -11,7 +11,8 @@ class CategoryModelAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductModelAdmin(admin.ModelAdmin):
-    list_display = ("pk","title","category", "slug","price", "stock", "status","uploated_at",)
+    list_display = ("pk","title","category", "slug", 
+                    "cover_image", "is_home","price", "stock", "status","uploated_at",)
     list_filter = ("status",)
-    list_editable = ("title", "status",)
+    list_editable = ("title", "status","is_home",)
     prepopulated_fields = {"slug": ("title",),}

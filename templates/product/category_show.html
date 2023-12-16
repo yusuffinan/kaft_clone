@@ -6,9 +6,11 @@
             <h3>{{ category.title }}</h3>
             <div class="row">
                 {% for item in items %}
-                    <div class="col-sm-4">
-                        {% include "product/categories_product.html" %}
-                    </div>
+                    {% if item.cover_image and item.cover_image.url %}
+                        <div class="col-sm-4">
+                            {% include "product/product.html" %}
+                        </div> 
+                    {% endif %}
                 {% endfor %}
             </div>
         </div> 

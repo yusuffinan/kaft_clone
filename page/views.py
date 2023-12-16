@@ -4,14 +4,14 @@ from django.contrib import messages
 from .forms import CarouselModelForm, PageModelForm
 from django.utils.text import slugify
 from django.contrib.admin.views.decorators import staff_member_required
-from product.models import Category
+from product.models import Category, Product
 
 STATUS="published"
 
 def index(request):
     context = dict()
     context['images'] = Carousel.objects.filter(status=STATUS).exclude(cover_image="")
-    # context['categories'] = Category.objects.filter(status=STATUS)
+    context['products'] = Product.objects.filter(is_home=True ,status=STATUS)
     return render(request, 'home/index.html', context)
 
 def manage_list(request):

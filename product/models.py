@@ -23,6 +23,7 @@ class Product(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(default="", db_index=True, blank=True, unique=True, null= False, max_length=200)
     status = models.CharField(default=STATUS_DEFAULT, choices=STATUS, max_length=10)
+    is_home =models.BooleanField(default=False)
     cover_image = models.ImageField(blank=True, null=True, upload_to="page")
     content = models.TextField()
     created_att = models.DateTimeField(auto_now_add=True)
