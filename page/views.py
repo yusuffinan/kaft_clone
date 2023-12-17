@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from .models import Carousel, Page
 from django.contrib import messages
 from .forms import CarouselModelForm, PageModelForm
@@ -18,7 +18,10 @@ def manage_list(request):
     context = dict()
     return render(request, "manage/manage.html", context)
 
-
+def page_show(request, slug):
+    context = dict()
+    context['page'] = get_object_or_404(Page, slug=slug)
+    return render(request, "page/page.html", context)
 def page_create(request):
     context = dict()
     context["title"] = "Page Create"

@@ -8,6 +8,7 @@ path("carousel_create", views.carousel_create, name="carousel_create"),
 path("carousel_list", views.carousel_list, name="carousel_list"),
 path("page_list", views.page_list, name="page_list"),
 path("page_create", views.page_create, name="page_create"),
+path("page/<slug:slug>", views.page_show, name="page_show"),
 
 path("carousel_update/<int:pk>", views.carousel_update, name="carousel_update"),
 path("page_update/<int:pk>", views.page_update, name="page_update"),
