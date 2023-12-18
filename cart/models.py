@@ -21,6 +21,8 @@ class ShopingCartItem(models.Model):
     def __str__(self):
         return f"{ self.product.title } price: { self.product.price }tl"
     
+  
+    
 class ShopingCart(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     items= models.ManyToManyField(ShopingCartItem, blank=True)
@@ -32,16 +34,28 @@ class ShopingCart(models.Model):
     def __str__(self):
         return f" pk: { self.pk } - total: { self.total_price } - status: { self.status }"
     
+    def total_price_update(self):
+         if self.status == "waiting":
+            total_price=0
+            for item in self.items.all():
+                if item.is_deleted == False:
+                    total_price += item.price
+            self.total_price = total_price
+            self.save() 
 
 @receiver(post_save, sender=ShopingCartItem)
 def shopping_cart_receiver(sender, instance, created, *args, **kwargs):
         if created:
              instance.price = instance.product.price
              instance.save()
+        shopping_cart_instance = instance.shopingcart_set.first()
+        if shopping_cart_instance is not None:
+            shopping_cart_instance.total_price_update()
         print(sender)
         print(kwargs)
 
 @receiver(m2m_changed, sender=ShopingCart.items.through)
-def shopping_cart(sender, *args, **kwargs):
+def shopping_cart(sender, instance, *args, **kwargs):
+     instance.total_price_update()
      print(args)
      print(kwargs)
