@@ -25,6 +25,7 @@ class ShopingCartItem(models.Model):
     
 class ShopingCart(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+    session_key = models.CharField(max_length=32, blank=True, null = True)
     items= models.ManyToManyField(ShopingCartItem, blank=True)
     total_price = models.FloatField(default=0)
     status = models.CharField(default="waiting", choices=STATUS, max_length=10,)

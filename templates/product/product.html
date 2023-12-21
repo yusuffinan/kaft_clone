@@ -12,7 +12,7 @@
           <span> 
             {{ item.price }} ₺  
           </span>
-          <a href="#" class="card-link btn btn-outline-secondary float-right"> Sepete Ekle</a>
+          <a href="{% url "shopping_cart_item_add" item.id%}" class="card-link btn btn-outline-secondary float-right"> Sepete Ekle</a>
         </div>
         
       </div>
