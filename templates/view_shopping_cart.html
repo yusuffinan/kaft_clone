@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+{% block content %}
+  <h1 class="text-center mt-4">Shopping Cart</h1>
+  
+  {% if shopping_cart %}
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="cart-container">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in shopping_cart.items.all %}
+                  <tr>
+                    <td>{{ item.product.title }}</td>
+                    <td>{{ item.price }} TL</td>
+                    <td>
+                      {% if not item.is_deleted %}
+                        <form method="post" action="{% url 'remove_from_cart' item.id %}">
+                          {% csrf_token %}
+                          <input type="submit" class="btn btn-danger btn-sm" value="Remove">
+                        </form>
+                      {% else %}
+                        <form method="post" action="{% url 'add_back_to_cart' item.id %}" >
+                          {% csrf_token %}
+                          <input type="submit" class="btn btn-primary btn-sm" value="Add Back">
+                        </form>
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if not item.is_deleted %}
+                        <span style="color: green;">Selected</span>
+                      {% else %}
+                        <span style="color: red;">Removed</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="text-center mt-3">Total Price: {{ shopping_cart.total_price }} TL</div>
+            <button class="btn btn-success">Pay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <p class="text-center mt-4">Your shopping cart is empty.</p>
+  {% endif %}
+{% endblock %}
