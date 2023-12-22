@@ -1,6 +1,14 @@
 {% extends 'base/base.html' %}
 {% block content %}
   <h1 class="text-center mt-4">Shopping Cart</h1>
+  <script>
+    function clearCart() {
+      if (confirm("Sepeti boşaltmak istediğinizden emin misiniz?")) {
+       
+        window.location.href = "{% url 'clear_shopping_cart' %}";
+      }
+    }
+  </script>
   
   {% if shopping_cart %}
     <div class="container mt-4">
@@ -10,10 +18,10 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Action</th>
-                  <th>Status</th>
+                  <th>Ürün</th>
+                  <th>Fiyat</th>
+                  <th>Kaldır-Ekle</th>
+                  <th>Durum</th>
                 </tr>
               </thead>
               <tbody>
@@ -25,28 +33,29 @@
                       {% if not item.is_deleted %}
                         <form method="post" action="{% url 'remove_from_cart' item.id %}">
                           {% csrf_token %}
-                          <input type="submit" class="btn btn-danger btn-sm" value="Remove">
+                          <input type="submit" class="btn btn-danger btn-sm" value="Kaldır">
                         </form>
                       {% else %}
                         <form method="post" action="{% url 'add_back_to_cart' item.id %}" >
                           {% csrf_token %}
-                          <input type="submit" class="btn btn-primary btn-sm" value="Add Back">
+                          <input type="submit" class="btn btn-primary btn-sm" value="Geri Ekle">
                         </form>
                       {% endif %}
                     </td>
                     <td>
                       {% if not item.is_deleted %}
-                        <span style="color: green;">Selected</span>
+                        <span style="color: green;">Seçildi</span>
                       {% else %}
-                        <span style="color: red;">Removed</span>
+                        <span style="color: red;">Kaldırıldı</span>
                       {% endif %}
                     </td>
                   </tr>
                 {% endfor %}
               </tbody>
             </table>
-            <div class="text-center mt-3">Total Price: {{ shopping_cart.total_price }} TL</div>
-            <button class="btn btn-success">Pay</button>
+            <div class="text-center mt-3">Toplam Fiyat: {{ shopping_cart.total_price }} TL</div>
+            <button class="btn btn-success">Öde</button>
+            <button class="btn btn-danger float-right" onclick="clearCart()">sepeti temizle</button>
           </div>
         </div>
       </div>

@@ -53,3 +53,22 @@ def add_back_to_cart(request, item_id):
                 shopping_cart_instance.total_price_update()
 
     return redirect('view_shopping_cart')
+
+def clear_shopping_cart(request):
+    if request.user.is_authenticated:
+        # Eğer kullanıcı giriş yapmışsa, kullanıcının sepetini boşalır.
+        user_cart = ShopingCart.objects.filter(user=request.user, status='waiting').first()
+        if user_cart:
+            user_cart.items.clear()
+            user_cart.total_price_update()
+
+    else:
+        # Eğer kullanıcı giriş yapmamışsa, oturumun sepetini boşalır.
+        session_key = request.session.session_key
+        if session_key:
+            session_cart = ShopingCart.objects.filter(session_key=session_key, status='waiting').first()
+            if session_cart:
+                session_cart.items.clear()
+                session_cart.total_price_update()
+
+    return redirect('view_shopping_cart')
