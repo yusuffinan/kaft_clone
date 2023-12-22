@@ -14,6 +14,19 @@ def index(request):
     context['products'] = Product.objects.filter(is_home=True ,status=STATUS)
     return render(request, 'home/index.html', context)
 
+def search(request):
+    if 'q' in request.GET and request.GET['q'] != '':
+        q = request.GET['q']
+        urunler = Product.objects.filter(title__contains=q) 
+        kategori = Category.objects.all()
+    else:
+        return redirect("index")
+    return render(request, 'page/search.html', {
+
+        "categories":kategori,
+        "urunler":urunler
+        })
+
 def manage_list(request):
     context = dict()
     return render(request, "manage/manage.html", context)

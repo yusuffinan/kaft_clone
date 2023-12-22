@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 from kaft_clone import settings
-from page.views import index
+from page.views import index, search
 from django.conf.urls.static import static
 from product.views import category_show
 
@@ -11,6 +11,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('manage/', include('page.urls'),),
     path('cart/', include('cart.urls')),  # cart/1/ gibi URL'leri ele alaca
+    path('search/', search, name="search"),
+
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 
